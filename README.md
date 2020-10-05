@@ -297,5 +297,69 @@ int main(){
 
     ![paso3](Capturas/paso3.png)
 
-    Como se puede observar en la captura hay un solo error, y este corresponde al linker ya que como se puede observar en la salida del SERCOM los archivos objeto fueron generados correctamente. El problema en linkeo se debe a que en el main se utiliza la función wordscounter_destroy() que esta declarada en el header pero nunca se implementa en el archivo .c correspondiente, por lo tanto la generación del ejecutable falla en etapa de linkeo. 
+    Como se puede observar en la captura hay un solo error, y este corresponde al linker ya que como se puede observar en la salida del SERCOM los
 
+     archivos objeto fueron generados correctamente. El problema en linkeo se debe a que en el main se utiliza la función wordscounter_destroy() que esta 
+
+    declarada en el header pero nunca se implementa en el archivo .c correspondiente, por lo tanto la generación del ejecutable falla en etapa de linkeo. 
+
+###  Paso 4: SERCOM - Memory Leaks y Buffer Overflows
+
+1. Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
+
+   Nuevamente por la utilización del comando diff se observa:
+
+    * Se implementa la función wordscounter_destroy()  para salvar el error previo. 
+
+ 2. Captura de pantalla del resultado de ejecución con Valgrind de la prueba ‘TDA’. Describir los errores reportados por Valgrind
+
+    ![TDA_Valgrind](Capturas/TDA_Valgrind.png)
+
+    ​			
+
+    ​		 En esta prueba tenemos 2 errores.
+
+      * ```bash
+        472 bytes in 1 blocks are still reachable in loss record 1 of 2
+        ```
+
+        ​	Este error significa que reservamos memoria pero no liberamos antes de finalizar la ejecución del programa. (En este caso hacemos un fopen() sin 	hacer el correspondiente fclose() ).
+
+    * ```bash
+      1,505 bytes in 215 blocks are definitely lost in loss record 2 of 2
+      ```
+
+      ​	En este segundo caso también reservamos memoria y no la liberamos, pero con la diferencia que ademas perdimos la referencia a dicha memoria. 	Esto hace que la memoria sea imposible de liberar. (En este caso la función wordscounter_next_state() realiza un malloc y luego esa memoria nunca   	se libera, perdiendo la referencia cuando se cierra el scope de dicha función )
+
+3.  Captura de pantalla del resultado de ejecución con Valgrind de la prueba ‘Long Filename’. Describir los errores reportados por Valgrind.!
+
+   ​	![long_name](Capturas/long_name.png)
+
+   * ```bash
+     memcpy_chk: buffer overflow detected ***: program terminated
+     ```
+
+     En este caso el error es buffer overflow, generado en un llamado a la función memcpy. Esto es generado debido a que el array char filepath[30]; esta definido con un largo de 30 bytes y en esta prueba se intenta guardar una cadena de tamaño mayor, lo que genera un buffer overflow.
+
+4. ¿Podría solucionarse este error utilizando la función strncpy? ¿Qué hubiera ocurrido con la ejecución de la prueba?
+
+   En el caso de haber usado la función strncpy en lugar de memcpy se hubiera prevenido el overflow, esto es debido a que strncpy es una función mas segura que recibe en forma de size_t la cantidad máxima de bytes que se pueden copiar y nunca supera ese numero. 
+
+   Si en esta prueba se utiliza strncpy en lugar de de memcpy, esta no arroja el buffer overflow pero queda el string destino incompleto, ya que la fuente es de mayor tamaño que el lugar que tiene asignado. Por obvias razones esto es preferible a tener un buffer overflow.
+
+5. Explicar de qué se trata un segmentation fault y un buffer overflow.
+   * Segmentation fault : Ocurre cuando nuestro programa intenta acceder a una dirección de memoria que no se tiene permisos. 
+   * Buffer overflow : Esto ocurre cuando nuestro programa tiene que copiar valores sobre un área de memoria (en nuestro caso un array) y se excede de la misma también copiando los datos sobre las direcciones adyacente. Esto puede ser peligroso, no solo en términos del funcionamiento del software sino también en términos de seguridad.
+
+### Paso 5: SERCOM - Código de retorno y salida estándar
+
+1. Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
+
+   ​	Nuevamente corremos el comando diff :
+
+   		* Se agrega el fclose necesario para cerrar el archivo que generaba errores de valgrind previamente.
+   		* En lugar de cargar el argumento recibido por comando en un string se usa directamente como path para fopen, solucionando el error de buffer overflow.
+
+  2. Describa el motivo por el que fallan las prueba ‘Invalid File’ y ‘Single Word’. ¿Qué información entrega SERCOM para identificar el error? Realice una captura de pantalla.
+
+     
