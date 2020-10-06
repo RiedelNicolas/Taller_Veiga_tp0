@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 # Ejercicio Nº 0 - Contador de Palabras
 
 ## Nicolás Riedel (102130)
@@ -254,8 +247,10 @@ int main(){
 
    ![paso2](Capturas/paso2.png)
 
-    		Nuevamente se puede observar que no se llego a la etapa de **linkeo**,  al fallar la creación del código objeto todos los **errores** vuelven a ser de  	         	     **compilación**.
+    			Nuevamente se puede observar que no se llego a la etapa de **linkeo**,  al fallar la creación del código objeto todos los **errores** 
 
+   ​					vuelven a ser de **compilación**.
+   
    ​		Los errores puntuales son : 
    
    * ```bash
