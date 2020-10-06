@@ -296,11 +296,8 @@ int main(){
 
     ![paso3](Capturas/paso3.png)
 
-    Como se puede observar en la captura hay un solo error, y este corresponde al **linker** ya que como se puede observar en la salida del **SERCOM** los
+    Como se puede observar en la captura hay un solo error, y este corresponde al **linker** ya que como se puede observar en la salida del **SERCOM** los archivos **objeto** fueron generados correctamente. El problema en **linkeo** se debe a que en el **main** se utiliza la función **wordscounter_destroy()** que esta declarada en el **header** pero nunca se implementa en el archivo **.c** correspondiente, por lo tanto la generación del ejecutable **falla en etapa de linkeo**. 
 
-     archivos **objeto** fueron generados correctamente. El problema en **linkeo** se debe a que en el **main** se utiliza la función **wordscounter_destroy()** que esta 
-
-    declarada en el **header** pero nunca se implementa en el archivo **.c** correspondiente, por lo tanto la generación del ejecutable **falla en etapa de linkeo**. 
 
 ###  Paso 4: SERCOM - Memory Leaks y Buffer Overflows
 
