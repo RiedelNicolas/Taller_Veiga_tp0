@@ -10,6 +10,8 @@
 
 ## Nicolás Riedel (102130)
 
+## Link al repo : https://github.com/RiedelNicolas/Taller_Veiga_tp0 .
+
 ### Taller de Programación I (75.42) - Cátedra Veiga - UBA
 
 
@@ -257,7 +259,7 @@ int main(){
    ​		Los errores puntuales son : 
    
    * ```bash
-  paso2_wordscounter.h:7:5: error: unknown type name ‘size_t’
+    paso2_wordscounter.h:7:5: error: unknown type name ‘size_t’
      ```
    
      No esta definido **size_t** , esto es porque **no se incluyo la biblioteca estándar** donde esta definido.
@@ -280,7 +282,7 @@ int main(){
    * ```bash
      paso2_wordscounter.c:30:25: error: implicit declaration of function ‘malloc’ [-Wimplicit-function-declaration]
      ```
-  
+    
      **No se incluye** la **biblioteca** donde esta definido **malloc**.
 
 ### Paso 3: SERCOM - Errores de generación 3
@@ -405,12 +407,4 @@ int main(){
 
 3. #### Captura de pantalla mostrando la ejecución de la prueba *‘Single Word’* de forma local con las distintas variantes indicadas.
 
-   
-
-​		![make6](Capturas/make6.png)
-
-  ![ejecutada 6.1](Capturas/ejecutada 6.1.png)   	
-
-  ![ejectu6.1](Capturas/ejectu6.1.png)	
-
- ![ejectuda 6.2 ](Capturas/ejectuda 6.2 .png)
+   ![capturaFinal](Capturas/capturaFinal.png)
