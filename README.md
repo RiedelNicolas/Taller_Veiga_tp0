@@ -282,7 +282,7 @@ int main(){
    * ```bash
      paso2_wordscounter.c:30:25: error: implicit declaration of function ‘malloc’ [-Wimplicit-function-declaration]
      ```
-    
+   
      **No se incluye** la **biblioteca** donde esta definido **malloc**.
 
 ### Paso 3: SERCOM - Errores de generación 3
@@ -403,7 +403,7 @@ int main(){
 
    ![entregas1](Capturas/entregas1.png)
 
-    																			![entregas2](Capturas/entregas2.png)
+   ![entregas2](Capturas/entregas2.png)
 
 3. #### Captura de pantalla mostrando la ejecución de la prueba *‘Single Word’* de forma local con las distintas variantes indicadas.
 
