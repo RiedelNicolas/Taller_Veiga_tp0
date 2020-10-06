@@ -250,24 +250,25 @@ int main(){
     			
 
    ​		
-   
+
    ​		Nuevamente se puede observar que no se llego a la etapa de **linkeo**,  al fallar la creación del código objeto todos los **errores** 
-   
+
    ​				vuelven a ser de **compilación**.
-   
+
    ​		Los errores puntuales son : 
-   
+
    * ```bash
-    paso2_wordscounter.h:7:5: error: unknown type name ‘size_t’
+     paso2_wordscounter.h:7:5: error: unknown type name ‘size_t’
      ```
-   
-     No esta definido **size_t** , esto es porque **no se incluyo la biblioteca estándar** donde esta definido.
-     
-   * ```bash
+
+     ​	No esta definido **size_t** , esto es porque **no se incluyo la biblioteca estándar** donde esta definido.
+
+   * ```
      paso2_wordscounter.h:20:1: error: unknown type name ‘size_t’
      ```
-     
-     Misma razón. 
+
+     ​	Misma razón. 
+
    * ```bash
      paso2_wordscounter.h:25:49: error: unknown type name ‘FILE’
      ```
@@ -281,7 +282,7 @@ int main(){
    * ```bash
      paso2_wordscounter.c:30:25: error: implicit declaration of function ‘malloc’ [-Wimplicit-function-declaration]
      ```
-   
+
      **No se incluye** la **biblioteca** donde esta definido **malloc**.
 
 ### Paso 3: SERCOM - Errores de generación 3
